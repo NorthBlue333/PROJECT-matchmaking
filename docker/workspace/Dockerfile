@@ -4,7 +4,7 @@ ARG UID
 ARG GID
 ARG USER
 RUN userdel -f -r node
-RUN /bin/bash -c '[[ $USER == "root" ]] || adduser --disabled-password --uid $UID --system --shell /bin/bash $USER'
+RUN /bin/bash -c '[[ $USER == "root" ]]' || adduser --disabled-password --uid $UID --system --shell /bin/bash $USER
 USER $USER
 
 RUN mkdir -p /home/$USER/app
