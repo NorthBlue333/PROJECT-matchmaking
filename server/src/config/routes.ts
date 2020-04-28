@@ -9,16 +9,28 @@ export class Routes {
   public userController: UsersController = new UsersController()
   
   public routes(app): void {
-    app.route("/").get(this.nodesController.index)
 
-    app.route("/nodes")
-    .get(this.nodesController.index)
-    .post(this.nodesController.create)
+    // USERS Routes
+    app.route('/users')
+    .get(this.userController.find)
+    .post(this.userController.create)
 
-    app.route("/nodes/:id")
-      .get(this.nodesController.show)
-      .put(this.nodesController.update)
-      .delete(this.nodesController.delete)
+    app.route('/users/:id')
+    .get(this.userController.findById)
+    .put(this.userController.updateById)
+    .delete(this.userController.delete)
+
+    // ROLES Routes
+
+    app.route('/roles')
+    .get(this.rolesController.find)
+    .post(this.rolesController.create)
+
+    app.route('/roles/:id')
+    .get(this.rolesController.findById)
+    .put(this.rolesController.updateById)
+    .delete(this.rolesController.delete)
+
 
   }
 }
