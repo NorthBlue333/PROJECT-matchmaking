@@ -2,13 +2,14 @@ FROM node
 
 ARG UID
 ARG GID
+ARG USER
 RUN userdel -f -r node
-RUN adduser --disabled-password --uid $UID --system --shell /bin/bash workspace
-USER workspace
+RUN [[ $USER == "root" ]] || adduser --disabled-password --uid $UID --system --shell /bin/bash $USER
+USER $USER
 
-RUN mkdir -p /home/workspace/app
+RUN mkdir -p /home/$USER/app
 
-WORKDIR /home/workspace/app
+WORKDIR /home/$USER/app
 
 ENV HOST=0.0.0.0 PORT=3000
 
