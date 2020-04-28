@@ -17,4 +17,4 @@ ENV HOST=0.0.0.0 PORT=3000
 
 EXPOSE 3000
 
-CMD /bin/bash -c 'npm i && npm run $DOCKER_COMMAND'
+CMD sh -c 'npm i && npm run $DOCKER_COMMAND'
