@@ -15,4 +15,4 @@ ENV HOST=0.0.0.0 PORT=3000
 
 EXPOSE 3000
 
-CMD npm install && npm run start
+CMD npm install && npm run dev
