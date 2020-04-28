@@ -20,7 +20,7 @@ app
     console.log('USERS::GET : ', req.query)
     res.json({
       user: {
-        username: 'Nible',
+        username: 'BLABLAsss',
         email: 'test@test.test',
       },
     })
