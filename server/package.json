@@ -6,6 +6,7 @@
   "scripts": {
     "start": "tsc && node dist/app.js",
     "dev": "tsc && nodemon dist/app.js",
+    "dev-l": "tsc && nodemon -L dist/app.js",
     "watch": "tsc --watch",
     "build": "tsc"
   },

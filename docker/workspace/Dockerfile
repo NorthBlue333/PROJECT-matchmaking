@@ -3,6 +3,8 @@ FROM node
 ARG UID
 ARG GID
 ARG DOCKER_USER
+ARG DOCKER_COMMAND
+
 RUN userdel -f -r node
 RUN /bin/bash -c '[[ $DOCKER_USER == "root" ]]' || adduser --disabled-password --uid $UID --system --shell /bin/bash $DOCKER_USER
 USER $DOCKER_USER
@@ -15,4 +17,4 @@ ENV HOST=0.0.0.0 PORT=3000
 
 EXPOSE 3000
 
-CMD npm i && npm run dev
+CMD npm i && npm run $DOCKER_COMMAND
