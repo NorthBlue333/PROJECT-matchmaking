@@ -10,31 +10,33 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.route('/users')
+app
+  .route('/users')
   .all(function (req, res, next) {
     // user middleware for all request
     next()
   })
   .get(function (req, res, next) {
     console.log('USERS::GET : ', req.query)
-    res.json({user: {
-      username: 'Nible',
-      email: 'test@test.test',
-    }})
+    res.json({
+      user: {
+        username: 'Nible',
+        email: 'test@test.test',
+      },
+    })
   })
   .post(function (req, res, next) {
     console.log('USERS::POST : ', req.body)
-    res.json({newUser: {
-      username: 'test',
-      email: 'nible@test.test',
-    }})
+    res.json({
+      newUser: {
+        username: 'test',
+        email: 'nible@test.test',
+      },
+    })
   })
 
-
-
-
-const server = http.createServer(app);
-const io = socket(server); // Attach socket.io to our server
+const server = http.createServer(app)
+const io = socket(server) // Attach socket.io to our server
 
 const connectedPlayers = []
 
@@ -45,7 +47,6 @@ io.on('connection', (socket) => {
 
 server.listen(3000, () => {
   console.log('Server started ! Listen on port 3000')
-});
-
+})
 
 module.exports = app

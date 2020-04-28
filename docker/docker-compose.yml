@@ -13,6 +13,8 @@ services:
       - ${API_PORT}:3000
     volumes:
       - ../server:/home/${DOCKER_USER}/app:cached
+    stdin_open: true
+    tty: true
 
   mariadb:
     image: mariadb:10.3.16

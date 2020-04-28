@@ -15,3 +15,8 @@ Using docker :
 docker exec -it {name} bash # {name} should be matchmaking_api_1, but you can obtain it by running docker-compose ps -a
 # run your npm command there, as npm run watch
 ```
+- To send `rs` to nodemon :
+```
+docker attach --detach-keys="ctrl-c" matchmaking_api_1
+rs
+```
