@@ -7,12 +7,12 @@ services:
       args:
         - UID
         - GID
-        - USER
+        - DOCKER_USER
     image: ${COMPOSE_PROJECT_NAME}-workspace
     ports:
       - ${API_PORT}:3000
     volumes:
-      - ../server:/home/workspace/app:cached
+      - ../server:/home/${DOCKER_USER}/app:cached
 
   mariadb:
     image: mariadb:10.3.16
