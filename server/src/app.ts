@@ -5,8 +5,6 @@ import path from 'path'
 import bodyParser from 'body-parser'
 
 const app = express()
-app.use(express.static(path.join(__dirname, 'public'))); // Serve our static assets from /public
-
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
 // parse application/json
@@ -45,8 +43,8 @@ io.on('connection', (socket) => {
   // @TODO send user Info when emit intead of socket
 })
 
-server.listen(4000, () => {
-  console.log('Server started ! Listen on port 4000')
+server.listen(3000, () => {
+  console.log('Server started ! Listen on port 3000')
 });
 
 
