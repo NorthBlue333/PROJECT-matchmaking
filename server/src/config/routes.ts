@@ -7,7 +7,6 @@ export class Routes {
   public nodesController: NodesController = new NodesController()
   public rolesController: RolesController = new RolesController()
   public userController: UsersController = new UsersController()
-  
   public routes(app): void {
 
     // USERS Routes
@@ -21,7 +20,6 @@ export class Routes {
     .delete(this.userController.delete)
 
     // ROLES Routes
-
     app.route('/roles')
     .get(this.rolesController.find)
     .post(this.rolesController.create)

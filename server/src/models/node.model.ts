@@ -30,4 +30,3 @@ Node.init(
   }
 );
 
-Node.sync().then(() => console.log("Node table created"));

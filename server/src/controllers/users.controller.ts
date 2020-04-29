@@ -1,14 +1,12 @@
 import { Request, Response } from "express";
 import { User, UserInterface } from "../models/user.model";
 import { UpdateOptions, DestroyOptions } from "sequelize";
-import { Role } from '../models/role.model'
+import { Role } from "../models/role.model";
 
 export class UsersController {
   public async find(req: Request, res: Response) {
     try {
-      const users = await User.findAll<User>({ include: [{
-        model: Role,
-       }]})
+      const users = await User.findAll<User>({include: [{all: true}]})
       res.json(users);
     } catch (err) {
       res.status(500).json(err)

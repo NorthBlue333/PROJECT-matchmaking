@@ -1,5 +1,6 @@
-import { Sequelize, Model, DataTypes, BuildOptions } from "sequelize";
+import { Sequelize, Model, DataTypes, BuildOptions, HasManyGetAssociationsMixin, HasManyAddAssociationMixin, HasManyHasAssociationMixin, HasManyCreateAssociationMixin, Association } from "sequelize";
 import { database } from "../config/database";
+import { Role, Roles } from "./role.model";
 
 export interface UserInterface {
   username: string;
@@ -9,12 +10,16 @@ export interface UserInterface {
 }
 
 export class User extends Model {
-  public id: number;
-  public username: string;
-  public email: string;
-  public password: string;
+  public id!: number;
+  public username!: string;
+  public email!: string;
+  public password!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
+
+  public roleId!: number
+
+
 }
 
 User.init(
@@ -47,6 +52,3 @@ User.init(
   }
 );
 
-// User.hasMany(Role, {as: 'roles', foreignKey: 'userId'})
-
-User.sync().then(() => console.log("User table created"));

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Role, RoleInterface } from "../models/role.model";
 import { UpdateOptions, DestroyOptions } from "sequelize";
+import { User } from "../models/user.model";
 
 export class RolesController {
   public async find(req: Request, res: Response) {

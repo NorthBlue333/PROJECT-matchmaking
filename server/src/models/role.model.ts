@@ -10,14 +10,15 @@ export enum Roles {
 
 export interface RoleInterface {
   role: Role;
-  userId: string;
+  userId: number;
 }
 
 export class Role extends Model {
-  public id: number;
-  public role: Roles;
+  public id!: number;
+  public role!: Roles;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
+
 }
 
 Role.init(
@@ -30,6 +31,7 @@ Role.init(
     role: {
       type: new DataTypes.STRING(128),
       allowNull: false,
+      unique: true,
       defaultValue: Roles.User,
     },
   },
@@ -37,8 +39,30 @@ Role.init(
     tableName: "roles",
     sequelize: database // this bit is important
   }
-);
+)
 
-Role.belongsTo(User, {foreignKey: 'userId'})
+User.belongsTo(Role, {as: 'role'})
 
-Role.sync().then(() => console.log("Role table created"));
+Role.sync().then(() => {
+  console.log('USER Table alter')
+  User.sync().then(() => {
+    console.log('ROLE Table alter')
+    populate()
+  }
+)})
+
+
+async function populate() {
+  const userRole = await Role.findOrCreate({where: {role: Roles.User}})
+  const adminRole = await Role.findOrCreate({where: {role: Roles.Admin}})
+  const superAdminRole = await Role.findOrCreate({where: {role: Roles.SuperAdmin}})
+  await User.findOrCreate({
+    where: {id: 1},
+    defaults : {
+      username: 'Nible',
+      email: 'enzo@wikodit.fr',
+      password: 'Azertyuiop1!',
+      roleId: superAdminRole[0].id,
+    }
+  })
+}
