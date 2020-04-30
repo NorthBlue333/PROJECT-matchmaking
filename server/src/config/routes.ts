@@ -2,13 +2,15 @@
 import { NodesController } from "../controllers/nodes.controller"
 import { RolesController } from '../controllers/roles.controller'
 import { UsersController } from '../controllers/users.controller'
-
+import { ApiController } from '../controllers/api.controller'
 export class Routes {
   public nodesController: NodesController = new NodesController()
   public rolesController: RolesController = new RolesController()
   public userController: UsersController = new UsersController()
   public routes(app): void {
 
+    app.route('/')
+    .get(new ApiController().find)
     // USERS Routes
     app.route('/users')
     .get(this.userController.find)
