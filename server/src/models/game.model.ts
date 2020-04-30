@@ -1,13 +1,13 @@
 import { Sequelize, Model, DataTypes, BuildOptions } from "sequelize";
 import { database } from "../config/database";
 
-export interface PartyInterface {
+export interface GameInterface {
   id: number;
   userId: number;
   opponentId: number
 }
 
-export class Party extends Model {
+export class Game extends Model {
   public id: number;
   public userId: number;
   public opponentId: number;
@@ -16,7 +16,7 @@ export class Party extends Model {
   public readonly updatedAt!: Date;
 }
 
-Party.init(
+Game.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,

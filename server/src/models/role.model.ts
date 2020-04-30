@@ -1,7 +1,7 @@
 import { Sequelize, Model, DataTypes, BuildOptions } from "sequelize";
 import { database } from "../config/database";
 import { User } from "./user.model";
-import { Party } from "./game.model";
+import { Game } from "./game.model";
 
 export enum Roles {
   Admin = 'admin',
@@ -43,15 +43,15 @@ Role.init(
 )
 
 User.belongsTo(Role, {as: 'role'})
-Party.belongsTo(User, {as: 'user'})
-Party.belongsTo(User, {as: 'opponent'})
+Game.belongsTo(User, {as: 'user'})
+Game.belongsTo(User, {as: 'opponent'})
 
 Role.sync().then(() => {
   console.log('USER Table created')
   User.sync().then(async () => {
     console.log('ROLE Table created')
     await populate()
-    Party.sync().then(() => {
+    Game.sync().then(() => {
       console.log('PARTY Table created')
     })
   }
