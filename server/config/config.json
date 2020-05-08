@@ -1,0 +1,35 @@
+{
+  "development": {
+    "username": "matchmaking",
+    "password": "matchmaking",
+    "database": "matchmaking",
+    "host": "mariadb",
+    "port": 3306,
+    "dialect": "mariadb",
+    "dialectOptions": {
+      "timezone": "Etc/GMT0"
+    }
+  },
+  "test": {
+    "username": "matchmaking",
+    "password": "matchmaking",
+    "database": "matchmaking",
+    "host": "mariadb",
+    "port": 3306,
+    "dialect": "mariadb",
+    "dialectOptions": {
+      "timezone": "Etc/GMT0"
+    }
+  },
+  "production": {
+    "username": "matchmaking",
+    "password": "matchmaking",
+    "database": "matchmaking",
+    "host": "mariadb",
+    "port": 3306,
+    "dialect": "mariadb",
+    "dialectOptions": {
+      "timezone": "Etc/GMT0"
+    }
+  }
+}
