@@ -87,22 +87,27 @@ export default class BoardGame extends Vue {
         }
       }
     }
-    current = this.findFilledAt(2, 2) ? this.findFilledAt(2, 2).symbol : null
+    const center = this.findFilledAt(2, 2)
+    current = center ? center.symbol : null
     if (!current) return
+    const topLeft = this.findFilledAt(1, 1)
+    const botRight = this.findFilledAt(3, 3)
     if (
-      this.findFilledAt(1, 1) &&
-      this.findFilledAt(1, 1).symbol === current &&
-      this.findFilledAt(3, 3) &&
-      this.findFilledAt(3, 3).symbol === current
+      topLeft &&
+      topLeft.symbol === current &&
+      botRight &&
+      botRight.symbol === current
     ) {
       this.$emit('win', current)
       return
     }
+    const topRight = this.findFilledAt(1, 3)
+    const botLeft = this.findFilledAt(3, 1)
     if (
-      this.findFilledAt(1, 3) &&
-      this.findFilledAt(1, 3).symbol === current &&
-      this.findFilledAt(3, 1) &&
-      this.findFilledAt(3, 1).symbol === current
+      topRight &&
+      topRight.symbol === current &&
+      botLeft &&
+      botLeft.symbol === current
     ) {
       this.$emit('win', current)
       return
