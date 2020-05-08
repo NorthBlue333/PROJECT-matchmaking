@@ -10,7 +10,6 @@
           <div
             class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0"
           >
-
             <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
               <div class="text-gray-500 text-center mb-3 font-bold">
                 <small>Register using credentials</small>
@@ -71,7 +70,9 @@
                       >
                     </div>
                     <div class="w-1/2 text-right">
-                    <router-link :to="{name:'Signin'}"><small>Got an account ? Signin </small></router-link>
+                      <router-link :to="{ name: 'Signin' }"
+                        ><small>Got an account ? Signin </small></router-link
+                      >
                     </div>
                   </div>
                 </div>
@@ -85,6 +86,9 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-export default Vue.extend({});
+import Vue from 'vue'
+import Component from 'vue-class-component'
+
+@Component
+export default class SignupForm extends Vue {}
 </script>

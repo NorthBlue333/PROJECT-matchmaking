@@ -1,16 +1,11 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
+    home
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import Vue from 'vue'
 
-
-export default {
-  name: "Home",
-  components: {
-  }
-};
+export default class Home extends Vue {}
 </script>
