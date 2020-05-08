@@ -1,1 +1,1 @@
-declare module "vue-tailwind"
+declare module 'vue-tailwind';

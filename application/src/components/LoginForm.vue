@@ -80,8 +80,9 @@
                       >
                     </div>
                     <div class="w-1/2 text-right">
-                    <router-link :to="{name:'Signup'}"><small>Create new account</small></router-link>
-
+                      <router-link :to="{ name: 'Signup' }"
+                        ><small>Create new account</small></router-link
+                      >
                     </div>
                   </div>
                 </div>
@@ -95,6 +96,9 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-export default Vue.extend({});
+import Vue from 'vue'
+import Component from 'vue-class-component'
+
+@Component
+export default class LoginForm extends Vue {}
 </script>
