@@ -1,29 +1,57 @@
 {
-  "name": "graphQL",
+  "name": "PROJECT-matchmaking",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node server.js"
+    "start": "tsc && node dist/server.js",
+    "dev": "tsc && nodemon dist/server.js",
+    "dev-l": "tsc && nodemon -L dist/server.js",
+    "watch": "tsc --watch",
+    "build": "tsc",
+    "sequelize-skeleton": "npx sequelize init:models; npx sequelize init:config"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NorthBlue333/PROJECT-matchmaking.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NorthBlue333/PROJECT-matchmaking/issues"
+  },
+  "homepage": "https://github.com/NorthBlue333/PROJECT-matchmaking#readme",
   "dependencies": {
-    "and": "^0.0.3",
     "apollo-server-express": "^2.13.0",
-    "babel": "^6.23.0",
-    "dependencies": "^0.0.1",
-    "dotenv": "^8.2.0",
+    "colyseus": "^0.13.3",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "graphql": "^15.0.0",
+    "express-list-endpoints": "^4.0.1",
     "mariadb": "^2.3.1",
-    "mysql2": "^2.1.0",
-    "pg": "^8.0.3",
-    "pg-hstore": "^2.3.3",
+    "reflect-metadata": "^0.1.3",
     "sequelize": "^5.21.7",
-    "sequelize-cli": "^5.5.1",
+    "sequelize-typescript": "^1.1.0",
+    "socket.io": "^2.3.0",
     "sqlite3": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.30",
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.6",
+    "@types/express-list-endpoints": "^4.0.1",
+    "@types/node": "^13.13.4",
+    "@types/sequelize": "^4.28.8",
+    "@types/socket.io": "^2.1.4",
+    "@types/validator": "^13.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.29.0",
+    "@typescript-eslint/parser": "^2.29.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "nodemon": "^2.0.3",
+    "prettier": "^2.0.5",
+    "ts-node": "^8.9.1",
+    "tslint": "^6.1.2",
+    "typescript": "^3.8.3"
   }
 }
