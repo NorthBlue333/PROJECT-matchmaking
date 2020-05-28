@@ -24,8 +24,27 @@ export default class GameWaiting extends Vue {
   waitingText = ''
   interval: number | null = null
 
-  created() {
+  async created() {
     this.interval = window.setInterval(this.setWaitingText, 500)
+
+    if (this.$store.getters.sessionRoom) {
+      await this.$store.dispatch('reconnectRoom', {
+        id: this.$store.getters.sessionRoom.id,
+        sessionId: this.$store.getters.sessionRoom.sessionId,
+      })
+    }
+
+    if (!(this.currentRoom && this.currentRoom.id)) {
+      await this.$store.dispatch('joinGameRoom')
+    }
+
+    this.currentRoom.onStateChange(() => {
+      if (Object.keys(this.currentRoom.state.players).length === 2)
+        this.$router.push({
+          name: 'game.play',
+          params: { id: this.currentRoom.id },
+        })
+    })
   }
 
   setWaitingText() {
@@ -36,6 +55,11 @@ export default class GameWaiting extends Vue {
 
   destroyed() {
     if (this.interval) window.clearInterval(this.interval)
+    if (this.currentRoom) this.currentRoom.removeAllListeners()
+  }
+
+  get currentRoom() {
+    return this.$store.state.game.room
   }
 }
 </script>

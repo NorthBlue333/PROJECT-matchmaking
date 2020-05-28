@@ -47,7 +47,7 @@ import Header from './Header.vue'
   },
 })
 export default class GameBoard extends Vue {
-  @Prop() id?: number
+  @Prop() id?: string
   currentTheme: Theme | null = null
   themes: Theme[] = [
     {
@@ -59,16 +59,25 @@ export default class GameBoard extends Vue {
       colorClass: 'white',
     },
   ]
-  scores: { symbol: string; line: number; col: number }[] = []
-  symbol = 'O'
-  winner: boolean | string = false
+  @Prop() scores?: [
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string
+  ]
+  @Prop() winner?: boolean | string
 
   handleThemeChange(theme: Theme) {
     this.currentTheme = theme
   }
 
-  handleGameInput(pos: [number, number]) {
-    this.scores.push({ symbol: this.symbol, line: pos[0], col: pos[1] })
+  async handleGameInput(line: number, col: number) {
+    await this.$store.dispatch('sendGameMove', { x: col, y: line })
   }
 
   get themeClasses() {

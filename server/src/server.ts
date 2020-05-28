@@ -1,20 +1,24 @@
-import {app} from "./app";
-import http from 'http'
+import { app } from './app'
+import { createServer } from 'http'
 import { Server } from 'colyseus'
-import { TestRoom } from "./room/test";
-import {database} from "./config/database";
-import { Routes } from "./config/routes";
-const PORT = process.env.PORT || 3000;
+import { monitor } from '@colyseus/monitor'
+import { GameRoom } from './room/game'
+import { database } from './config/database'
+;(async () => {
+  // await database.sync({ force: true })
 
-const gameServer = new Server({
-  server: http.createServer(app),
-  express: app
-});
-const routes = new Routes().routes(app)
-database.sync({force: true});
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+  const PORT = Number(process.env.PORT) || 3000
 
-// App.gameServer.define()
-gameServer.define('test', TestRoom)
-gameServer.listen(3333).then(() => console.log('GameServer listen on port 3333'));
+  const gameServer = new Server({
+    server: createServer(app),
+    express: app,
+  })
 
+  gameServer.define('game_room', GameRoom)
+
+  app.use('/colyseus', monitor())
+
+  await gameServer.listen(PORT)
+
+  console.log('GameServer listen on ws://localhost:' + PORT)
+})()

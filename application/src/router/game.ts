@@ -20,7 +20,7 @@ export default [
         name: 'game.play',
         component: () => import('@/views/Game/Play.vue'),
         props: route => ({
-          id: parseInt(route.params.id),
+          id: route.params.id,
         }),
       },
     ],

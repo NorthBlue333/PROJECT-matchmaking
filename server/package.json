@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/NorthBlue333/PROJECT-matchmaking#readme",
   "dependencies": {
+    "@colyseus/monitor": "^0.12.2",
     "apollo-server-express": "^2.13.0",
     "colyseus": "^0.13.3",
     "cors": "^2.8.5",

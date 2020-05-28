@@ -1,17 +1,28 @@
-import {Model, Column, Table, BelongsToMany, Scopes, CreatedAt, UpdatedAt, BelongsTo, ForeignKey, DataType} from "sequelize-typescript";
-import { User } from "./user.model";
+import {
+  Model,
+  Column,
+  Table,
+  BelongsToMany,
+  Scopes,
+  CreatedAt,
+  UpdatedAt,
+  BelongsTo,
+  ForeignKey,
+  DataType,
+} from 'sequelize-typescript'
+import { User } from './user.model'
 
 @Table({})
 export class Game extends Model<Game> {
   @ForeignKey(() => User)
-  @Column(DataType.NUMBER)
+  @Column(DataType.INTEGER)
   userId!: string
 
   @BelongsTo(() => User)
   user: User
 
   @ForeignKey(() => User)
-  @Column(DataType.NUMBER)
+  @Column(DataType.INTEGER)
   opponentId!: string
 
   @BelongsTo(() => User, 'opponentId')
