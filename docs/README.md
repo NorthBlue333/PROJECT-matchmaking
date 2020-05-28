@@ -12,17 +12,30 @@ L'application utilise VueJS pour le front-end ainsi que NodeJS couplé à Colyse
 
 Electron est ici pour compiler l'application et la rendre multiplateforme à la manière d'un logiciel.
 
-## Architecture du logiciel
+## Le logiciel
+
+L'application a un fonctionnement très simple, ce schema résume celui-ci.
+
+![fonctionnement de l'app](./assets/fonctionnement.png)
+
+Voici l'architecture du logiciel.
+
+![Architecture de l'app](./assets/architecture.png)
 
 ## Fonctionnalités majeures
 
 En tant qu'invité, vous pouvez :
 
-- Créer un salon de jeu
 - Chercher les salons de jeu disponibles
 - Rejoindre un salon
 - Se reconnecter en combat
 - Jouer au morpion
+
+Mais, vous pouvez aussi vous inscrire / vous connecter, et grâce à cela, vous pouvez :
+
+- Avoir votre propre pseudo
+- Avoir des statistiques
+- Faire tout ce qu'un invité peut faire
 
 ## Présentation de la BDD
 
