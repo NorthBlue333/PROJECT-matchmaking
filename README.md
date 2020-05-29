@@ -35,7 +35,6 @@ Pour installer le client il faut taper ces commandes :
 
 ```bash
 npm install
-npm run electron:build
 npm run electron:serve
 ```
 
