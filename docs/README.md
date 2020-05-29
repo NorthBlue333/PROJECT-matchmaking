@@ -39,6 +39,13 @@ Mais, vous pouvez aussi vous inscrire / vous connecter, et grâce à cela, vous 
 
 ## Présentation de la BDD
 
+![Architecture de la DB](./assets/db.png)
+
+Comme vous pouvez le voir, cette base de données stocke les utilisateurs inscrits ainsi que les parties effectuées.
+
+Les deux adversaires se retrouvent via les champs `userId` et `opponentId`. Si le joueur est un invité, le champ sera `null` et de même pour `winnerId`.
+
+
 ## L'application
 
 Ecrans de connexion/inscription basique
