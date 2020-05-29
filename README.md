@@ -24,6 +24,7 @@ DOCKER_COMMAND=dev
 Il vous suffit de taper la commande
 
 ```bash
+cd application
 docker-compose up
 ```
 
