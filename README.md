@@ -36,7 +36,7 @@ Pour installer le client il faut taper ces commandes :
 ```bash
 npm install
 npm run electron:build
-npm run electron
+npm run electron:serve
 ```
 
 Celui-ci va donc se lancer et laisser apparaitre le TicTacToe.
