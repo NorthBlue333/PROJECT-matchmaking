@@ -11,7 +11,7 @@ Vue.use(VueRouter)
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    redirect: { name: 'game' },
+    redirect: { name: 'game.index' },
   },
   {
     path: '/login',
