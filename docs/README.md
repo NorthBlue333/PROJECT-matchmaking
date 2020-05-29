@@ -2,6 +2,13 @@
 
 TicTacToe Online est un jeu de morpion en ligne, le but est simple : on ouvre l'application, on crée une room et on attends que quelqu'un rejoigne celle-ci afin de participer à une bataille endiablée !
 
+- [TicTacToe Online](#tictactoe-online)
+  - [Présentation du projet](#présentation-du-projet) 
+  - [Le logiciel](#le-logiciel) 
+  - [Fonctionnalités majeures](#fonctionnalités-majeures)
+  - [Présentation de la BDD](#présentation-de-la-bdd)
+  - [L'application](#lapplication)
+
 ## Présentation du projet
 
 TicTacToe Online est une application web destinée aux personnes voulant jouer avec leur amis au morpion en ligne de manière simple et efficace.
