@@ -58,6 +58,11 @@
                         ><small>Create new account</small></router-link
                       >
                     </div>
+                    <div class="mx-auto">
+                      <router-link :to="{ name: 'game.index' }"
+                        ><small>Play as guest</small></router-link
+                      >
+                    </div>
                   </div>
                 </div>
               </form>
