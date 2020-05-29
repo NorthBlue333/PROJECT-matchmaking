@@ -2,3 +2,4 @@
 *.lock
 node_modules
 **/dist
+docs/~$projet-matchmaking.odp
