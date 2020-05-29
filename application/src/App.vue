@@ -9,7 +9,13 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 
 @Component
-export default class App extends Vue {}
+export default class App extends Vue {
+  created() {
+    console.log(this.$store.state)
+    if (this.$store.getters.sessionUser)
+      this.$store.commit('setUser', this.$store.getters.sessionUser)
+  }
+}
 </script>
 
 <style lang="scss">

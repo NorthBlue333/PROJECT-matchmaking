@@ -5,7 +5,8 @@ import { monitor } from '@colyseus/monitor'
 import { GameRoom } from './room/game'
 import { database } from './config/database'
 ;(async () => {
-  // await database.sync({ force: true })
+  // await database.sync()
+  await database.sync({ force: true })
 
   const PORT = Number(process.env.PORT) || 3000
 

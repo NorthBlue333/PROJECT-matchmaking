@@ -5,4 +5,8 @@ module.exports = {
   chainWebpack: config => {
     config.resolve.alias.set('@scss', path.join(__dirname, 'src/assets/scss'))
   },
+
+  devServer: {
+    disableHostCheck: true,
+  },
 }

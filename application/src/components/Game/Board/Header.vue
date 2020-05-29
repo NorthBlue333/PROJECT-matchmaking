@@ -23,6 +23,34 @@
         v-if="theme === currentTheme"
       ></span>
     </div>
+    <div class="mx-auto">
+      <span v-if="!win && !draw && turn === ownId">Your turn!</span>
+      <span v-if="!win && !draw && turn !== ownId">Opponent's turn</span>
+      <span class="ml-2" v-if="!win && !draw">{{ secondsLeft }}</span>
+    </div>
+    <div class="flex flex-col text-right">
+      <div>
+        You are <span class="font-bold">{{ ownId }}</span> and you play
+        <span class="font-bold">{{
+          currentRoom.state.players[ownId].symbol
+        }}</span>
+      </div>
+      <div>
+        <span
+          :class="[
+            'font-semibold text-xs italic p-2 rounded-full',
+            activeThemeClasses(currentTheme),
+          ]"
+          v-if="!connected"
+          >DISCONNECTED</span
+        >
+        Your opponent is <span class="font-bold">{{ opponentId }}</span> and
+        plays
+        <span class="font-bold">{{
+          currentRoom.state.players[opponentId].symbol
+        }}</span>
+      </div>
+    </div>
   </header>
 </template>
 
@@ -31,6 +59,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { Prop } from 'vue-property-decorator'
 import { Theme } from '@/types/game/theme'
+import { filter } from 'lodash'
 
 @Component
 export default class GameBoardHeader extends Vue {
@@ -43,10 +72,35 @@ export default class GameBoardHeader extends Vue {
     ],
   })
   themes?: Theme[]
+  @Prop()
+  win?: boolean
+  @Prop()
+  draw?: boolean
   @Prop() currentTheme?: Theme
+  connected = true
+  turn = ''
+  intervalTimeout: number | null = null
+  secondsLeft = 10
 
   created() {
     if (this.themes && this.themes.length > 0) this.changeTheme(this.themes[0])
+    this.connected = this.currentRoom.state.players[this.opponentId].connected
+    this.turn = this.currentRoom.state.currentTurn
+    if (this.intervalTimeout) window.clearInterval(this.intervalTimeout)
+    this.intervalTimeout = window.setInterval(() => {
+      if (this.secondsLeft > 0) this.secondsLeft -= 1
+    }, 1000)
+    this.currentRoom.onStateChange(() => {
+      this.connected = this.currentRoom.state.players[this.opponentId]
+        ? this.currentRoom.state.players[this.opponentId].connected
+        : false
+      this.turn = this.currentRoom.state.currentTurn
+      this.secondsLeft = 10
+      if (this.intervalTimeout) window.clearInterval(this.intervalTimeout)
+      this.intervalTimeout = window.setInterval(() => {
+        if (this.secondsLeft > 0) this.secondsLeft -= 1
+      }, 1000)
+    })
   }
 
   themeStyle(theme: Theme) {
@@ -98,17 +152,39 @@ export default class GameBoardHeader extends Vue {
   }
 
   activeThemeClasses(theme: Theme) {
-    let classes = ''
+    const classes = []
     if (Object.prototype.hasOwnProperty.call(theme, 'colorClass'))
-      classes =
+      classes.push(
         'bg-' +
-        (theme as { backgroundClass: string; colorClass: string }).colorClass
-    return classes
+          (theme as { backgroundClass: string; colorClass: string }).colorClass
+      )
+    if (Object.prototype.hasOwnProperty.call(theme, 'backgroundClass'))
+      classes.push(
+        'text-' +
+          (theme as { backgroundClass: string; colorClass: string })
+            .backgroundClass
+      )
+    return classes.join(' ')
   }
 
   changeTheme(theme: Theme) {
     if (theme === this.currentTheme) return
     this.$emit('change-theme', theme)
+  }
+
+  get ownId() {
+    return this.currentRoom.sessionId
+  }
+
+  get opponentId() {
+    return filter(
+      Object.keys(this.currentRoom.state.players),
+      id => id !== this.ownId
+    )[0]
+  }
+
+  get currentRoom() {
+    return this.$store.state.game.room
   }
 }
 </script>
