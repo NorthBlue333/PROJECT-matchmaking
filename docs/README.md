@@ -19,6 +19,8 @@ L'application utilise VueJS pour le front-end ainsi que NodeJS couplé à Colyse
 
 Electron est ici pour compiler l'application et la rendre multiplateforme à la manière d'un logiciel.
 
+Le trello est disponible [ici](https://trello.com/b/ibDUj1SR/projet-b2-logiciel)
+
 ## Le logiciel
 
 L'application a un fonctionnement très simple, ce schema résume celui-ci.
