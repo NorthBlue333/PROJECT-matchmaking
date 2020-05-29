@@ -1,18 +1,14 @@
-import {Model, Column, Table, BelongsToMany, Scopes, CreatedAt, UpdatedAt, BelongsTo, DataType} from "sequelize-typescript";
-import { UserRole } from "./userRole.model";
-import { Role } from "./role.model";
+import {
+  Model,
+  Column,
+  Table,
+  CreatedAt,
+  UpdatedAt,
+  DataType,
+  HasMany,
+} from 'sequelize-typescript'
+import { Game } from './game.model'
 
-
-@Scopes(() => ({
-  roles: {
-    include: [
-      {
-        model: Role,
-        through: {attributes: []}
-      }
-    ]
-  }
-}))
 @Table
 export class User extends Model<User> {
   @Column(DataType.STRING)
@@ -24,8 +20,14 @@ export class User extends Model<User> {
   @Column(DataType.STRING)
   password!: string
 
-  @BelongsToMany(() => Role, () => UserRole)
-  roles?: Role[]
+  @HasMany(() => Game, 'userId')
+  userGames?: Game[]
+
+  @HasMany(() => Game, 'opponentId')
+  opponentGames?: Game[]
+
+  @HasMany(() => Game, 'winnerId')
+  wonGames?: Game[]
 
   @CreatedAt
   @Column(DataType.DATE)
@@ -34,5 +36,4 @@ export class User extends Model<User> {
   @UpdatedAt
   @Column(DataType.DATE)
   updatedAt!: Date
-
 }

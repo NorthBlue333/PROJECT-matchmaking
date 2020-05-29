@@ -14,7 +14,7 @@
               <div class="text-gray-500 text-center mb-3 font-bold">
                 <small>Register using credentials</small>
               </div>
-              <form>
+              <form @submit.prevent="register">
                 <div class="relative w-full mb-3">
                   <label
                     class="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -26,6 +26,7 @@
                     class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
                     placeholder="Username"
                     style="transition: all 0.15s ease 0s;"
+                    v-model="username"
                   />
                 </div>
                 <div class="relative w-full mb-3">
@@ -39,6 +40,7 @@
                     class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
                     placeholder="Email"
                     style="transition: all 0.15s ease 0s;"
+                    v-model="email"
                   />
                 </div>
                 <div class="relative w-full mb-3">
@@ -52,25 +54,21 @@
                     class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
                     placeholder="Password"
                     style="transition: all 0.15s ease 0s;"
+                    v-model="password"
                   />
                 </div>
 
                 <div class="text-center mt-6">
                   <button
                     class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-                    type="button"
+                    type="submit"
                     style="transition: all 0.15s ease 0s;"
                   >
                     Sign Up
                   </button>
                   <div class="flex flex-wrap mt-6">
-                    <div class="w-1/2">
-                      <a href="#forgot" class="text-white-300"
-                        ><small>Forgot password?</small></a
-                      >
-                    </div>
-                    <div class="w-1/2 text-right">
-                      <router-link :to="{ name: 'Signin' }"
+                    <div class="mx-auto">
+                      <router-link :to="{ name: 'signin' }"
                         ><small>Got an account ? Signin </small></router-link
                       >
                     </div>
@@ -90,5 +88,23 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 
 @Component
-export default class SignupForm extends Vue {}
+export default class SignupForm extends Vue {
+  username = ''
+  password = ''
+  email = ''
+
+  beforeCreate() {
+    if (this.$store.state.user && this.$store.state.user.currentUser)
+      this.$router.push({ name: 'game.index' })
+  }
+  async register() {
+    await this.$store.dispatch('registerUser', {
+      email: this.email,
+      username: this.username,
+      password: this.password,
+    })
+    if (this.$store.state.user.currentUser)
+      this.$router.push({ name: 'game.index' })
+  }
+}
 </script>

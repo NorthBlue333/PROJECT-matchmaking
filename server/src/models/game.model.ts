@@ -28,6 +28,13 @@ export class Game extends Model<Game> {
   @BelongsTo(() => User, 'opponentId')
   opponent: User
 
+  @ForeignKey(() => User)
+  @Column(DataType.INTEGER)
+  winnerId!: string
+
+  @BelongsTo(() => User, 'winnerId')
+  winner: User
+
   @CreatedAt
   @Column(DataType.DATE)
   createdAt!: Date

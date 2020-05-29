@@ -8,16 +8,21 @@
       :themes="themes"
       :current-theme="currentTheme"
       @change-theme="handleThemeChange"
+      :win="!!winner"
+      :draw="draw"
     />
-    <div v-if="winner" class="text-center flex flex-col items-center">
-      <span>{{ winner }} wins !</span>
+    <div v-if="winner || draw" class="text-center flex flex-col items-center">
+      <span v-if="winner">{{
+        winner === ownId ? 'You win!' : 'Your opponent wins!'
+      }}</span>
+      <span v-if="draw">It's a draw !</span>
       <t-button
         variant="primary"
         primary-class="text-black bg-white border-white hover:bg-white hover:border-white focus:outline-none"
         size="sm"
         @click="
-          scores = []
-          winner = false
+          $store.dispatch('leaveRoom', null)
+          $router.push({ name: 'game.waiting' })
         "
       >
         Restart
@@ -29,6 +34,7 @@
       :scores="scores"
       class="mt-4"
       :win="!!winner"
+      :draw="draw"
     />
   </div>
 </template>
@@ -71,6 +77,7 @@ export default class GameBoard extends Vue {
     string
   ]
   @Prop() winner?: boolean | string
+  @Prop() draw?: boolean
 
   handleThemeChange(theme: Theme) {
     this.currentTheme = theme
@@ -92,6 +99,10 @@ export default class GameBoard extends Vue {
     return this.$refs.header
       ? (this.$refs.header as Header).themeStyle(this.currentTheme)
       : ''
+  }
+
+  get ownId() {
+    return this.$store.state.game.room.sessionId
   }
 }
 </script>

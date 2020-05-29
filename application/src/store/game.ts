@@ -17,17 +17,24 @@ export const game: Module<GameState, State> = {
     },
   },
   actions: {
-    async joinGameRoom({ commit }, payload?: { id: string }) {
+    async joinGameRoom({ commit, rootState }, payload?: { id: string }) {
+      const userId = rootState.user.currentUser
+        ? rootState.user.currentUser.id
+        : null
       if (payload) {
         try {
-          const room = await colyseusClient.joinById(payload.id)
+          const room = await colyseusClient.joinById(payload.id, {
+            id: userId,
+          })
           commit('setRoom', room)
         } catch (e) {
           commit('setRoom', null)
         }
       } else {
         try {
-          const room = await colyseusClient.joinOrCreate('game_room')
+          const room = await colyseusClient.joinOrCreate('game_room', {
+            id: userId,
+          })
           commit('setRoom', room)
         } catch (e) {
           commit('setRoom', null)
@@ -44,6 +51,14 @@ export const game: Module<GameState, State> = {
     },
     async sendGameMove({ state }, move) {
       await state.room?.send('move', move)
+    },
+    async leaveRoom({ state }) {
+      try {
+        await state.room?.leave()
+        this.commit('setRoom', null)
+      } catch (e) {
+        console.log(e)
+      }
     },
   },
   getters: {

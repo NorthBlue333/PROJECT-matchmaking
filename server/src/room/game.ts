@@ -1,5 +1,6 @@
 import { Room, Delayed, Client } from 'colyseus'
 import { type, Schema, MapSchema, ArraySchema } from '@colyseus/schema'
+import { Game } from '../models/game.model'
 
 const TURN_TIMEOUT = 10
 const BOARD_WIDTH = 3
@@ -34,6 +35,9 @@ export class State extends Schema {
 export class GameRoom extends Room<State> {
   maxClients = 2
   randomMoveTimeout: Delayed
+  firstUserId: { session: string; id: number } | null
+  secondUserId: { session: string; id: number } | null
+  winnerId: number | null
 
   onCreate() {
     this.setState(new State())
@@ -43,7 +47,7 @@ export class GameRoom extends Room<State> {
     })
   }
 
-  doMove(client, data) {
+  async doMove(client, data) {
     if (this.state.winner || this.state.draw) {
       return
     }
@@ -58,8 +62,21 @@ export class GameRoom extends Room<State> {
 
         if (this.checkWin(data.x, data.y, move)) {
           this.state.winner = client.sessionId
+          if (this.firstUserId.session === this.state.winner)
+            this.winnerId = this.firstUserId.id
+          else this.winnerId = this.secondUserId.id
+          await Game.create({
+            userId: this.firstUserId ? this.firstUserId.id : null,
+            opponentId: this.secondUserId ? this.secondUserId.id : null,
+            winnerId: this.winnerId,
+          })
         } else if (this.checkBoardComplete()) {
           this.state.draw = true
+          await Game.create({
+            userId: this.firstUserId ? this.firstUserId.id : null,
+            opponentId: this.secondUserId ? this.secondUserId.id : null,
+            winnerId: null,
+          })
         } else {
           const playerIds = Object.keys(this.state.players)
 
@@ -72,14 +89,18 @@ export class GameRoom extends Room<State> {
     }
   }
 
-  onJoin(client: Client) {
+  onJoin(client: Client, options) {
     let players = Object.keys(this.state.players)
     this.state.players[client.sessionId] = new Player(
       ['X', 'O'][players.length]
     )
     players = Object.keys(this.state.players)
 
+    if (players.length === 1)
+      this.firstUserId = { session: client.sessionId, id: options.id }
+
     if (players.length === 2) {
+      this.secondUserId = { session: client.sessionId, id: options.id }
       this.state.currentTurn = players[0]
       this.setAutoMoveTimeout()
 
@@ -171,6 +192,10 @@ export class GameRoom extends Room<State> {
   }
 
   async onLeave(client, consented: boolean) {
+    if (Object.keys(this.state.players).length === 1) {
+      delete this.state.players[client.sessionId]
+      return
+    }
     // flag client as inactive for other users
     this.state.players[client.sessionId].connected = false
 
@@ -191,7 +216,7 @@ export class GameRoom extends Room<State> {
       if (this.randomMoveTimeout) this.randomMoveTimeout.clear()
 
       const remainingPlayerIds = Object.keys(this.state.players)
-      if (remainingPlayerIds.length > 0) {
+      if (remainingPlayerIds.length > 0 && !this.state.winner) {
         this.state.winner = remainingPlayerIds[0]
       }
     }

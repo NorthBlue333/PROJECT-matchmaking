@@ -4,6 +4,17 @@
     <div class="flex flex-col items-center my-2">
       <Loader />
       <div class="pt-2">Waiting{{ waitingText }}</div>
+      <t-button
+        variant="primary"
+        primary-class="text-black bg-white border-white hover:bg-white hover:border-white focus:outline-none"
+        size="sm"
+        @click="
+          $store.dispatch('leaveRoom', null)
+          joinRoom()
+        "
+      >
+        Retry
+      </t-button>
     </div>
   </div>
 </template>
@@ -26,7 +37,10 @@ export default class GameWaiting extends Vue {
 
   async created() {
     this.interval = window.setInterval(this.setWaitingText, 500)
+    await this.joinRoom()
+  }
 
+  async joinRoom() {
     if (this.$store.getters.sessionRoom) {
       await this.$store.dispatch('reconnectRoom', {
         id: this.$store.getters.sessionRoom.id,
@@ -39,11 +53,13 @@ export default class GameWaiting extends Vue {
     }
 
     this.currentRoom.onStateChange(() => {
-      if (Object.keys(this.currentRoom.state.players).length === 2)
+      if (Object.keys(this.currentRoom.state.players).length === 2) {
+        this.currentRoom.removeAllListeners()
         this.$router.push({
           name: 'game.play',
           params: { id: this.currentRoom.id },
         })
+      }
     })
   }
 
@@ -55,7 +71,6 @@ export default class GameWaiting extends Vue {
 
   destroyed() {
     if (this.interval) window.clearInterval(this.interval)
-    if (this.currentRoom) this.currentRoom.removeAllListeners()
   }
 
   get currentRoom() {

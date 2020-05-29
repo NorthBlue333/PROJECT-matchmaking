@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
-import LoginForm from '../components/LoginForm.vue'
-import SignupForm from '../components/SignupForm.vue'
+import Home from '@/views/Home.vue'
+import LoginForm from '@/views/LoginForm.vue'
+import SignupForm from '@/views/SignupForm.vue'
+import LogoutForm from '@/views/LogoutForm.vue'
 
 import gameRoutes from './game'
 
@@ -16,13 +17,18 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/login',
-    name: 'Signin',
+    name: 'signin',
     component: LoginForm,
   },
   {
     path: '/signup',
-    name: 'Signup',
+    name: 'signup',
     component: SignupForm,
+  },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: LogoutForm,
   },
   ...gameRoutes,
 ]
