@@ -2,6 +2,8 @@
 
 TicTacToe Online est un jeu de morpion en ligne, le but est simple : on ouvre l'application, on crée une room et on attends que quelqu'un rejoigne celle-ci afin de participer à une bataille endiablée !
 
+La documentation technique est disponible [ici]('./docs/')
+
 ## Installer le serveur
 
 Vous pouvez installer le projet via un docker-compose disponible dans `/docker`
