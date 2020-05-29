@@ -24,7 +24,6 @@ DOCKER_COMMAND=dev
 Il vous suffit de taper la commande
 
 ```bash
-cd application
 docker-compose up
 ```
 
@@ -35,6 +34,7 @@ Et voilà ! Le serveur est prêt à accueillir des connexions.
 Pour installer le client il faut taper ces commandes :
 
 ```bash
+cd application
 npm install
 npm run electron:serve
 ```
