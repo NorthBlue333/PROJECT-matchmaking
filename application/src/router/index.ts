@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '@/views/Home.vue'
 import LoginForm from '@/views/LoginForm.vue'
 import SignupForm from '@/views/SignupForm.vue'
 import LogoutForm from '@/views/LogoutForm.vue'
@@ -12,8 +11,7 @@ Vue.use(VueRouter)
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    redirect: { name: 'game' },
   },
   {
     path: '/login',
