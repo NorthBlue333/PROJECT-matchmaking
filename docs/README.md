@@ -40,3 +40,36 @@ Mais, vous pouvez aussi vous inscrire / vous connecter, et grâce à cela, vous 
 ## Présentation de la BDD
 
 ## L'application
+
+Ecrans de connexion/inscription basique
+
+![Login](./assets/0-login.PNG)
+
+
+![Signup](./assets/0-signup.PNG)
+
+Ecran servant à lancer le matchmaking
+
+![Gamesearch](./assets/1-gamesearch.PNG)
+
+Matchmaking en cours !
+
+![Matchmaking](./assets/2-matchmaking.PNG)
+
+Arrivée sur le plateau de jeu
+
+![Board](./assets/3-gameboard.PNG)
+
+On gagne la partie !
+
+![Win](./assets/4-win.PNG)
+
+Celle ci on la perd ...
+
+![Loose](./assets/5-loose.PNG)
+
+Et une égalité :
+
+![Draw](./assets/6-draw.PNG)
+
+
